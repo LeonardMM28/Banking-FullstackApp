@@ -1,0 +1,153 @@
+.Create_Account {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: "Manrope", sans-serif;
+  background-color: #9d9ea1;
+  scroll-behavior: smooth;
+}
+
+.Create_Account * {
+  scroll-behavior: smooth;
+}
+
+.Create_Account .data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 2rem;
+  margin: 0;
+  font-family: "Manrope", sans-serif;
+  background-color: #9d9ea1;
+}
+
+.Create_Account .dataBox h2 {
+  font-size: 1rem;
+  margin: 0;
+  margin-bottom: 1rem;
+}
+
+.Create_Account .dataBox label {
+  font-size: 1.7rem;
+}
+
+.Create_Account header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 0; 
+  background-color: #393e46;
+  width: 100%;
+  height: 18%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.Create_Account .Create_Account-logo {
+  width: 8%;
+}
+
+.Create_Account header h1 {
+  color: rgb(203, 203, 203);
+  padding-left: 1rem;
+}
+
+.Create_Account main .dataBox {
+  color: #393e46;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  padding: 1.2rem;
+  padding-bottom: 0.5rem;
+  margin-top: 15rem;
+  border-style: solid;
+  border-width: 0.3rem;
+  border-radius: 0.3rem;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  animation: drawLine 2s forwards;
+}
+
+@keyframes drawLine {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.Create_Account main input {
+  font-size: 1rem;
+  margin: 0.5rem;
+}
+
+.Create_Account main button {
+  width: fit-content;
+  align-self: center;
+  cursor: pointer;
+}
+
+.Create_Account main .Submit {
+  font-size: 0.8rem;
+  background-color: rgb(229, 228, 228);
+  font-family: "Manrope", sans-serif;
+  font-weight: bold;
+  color: #393e46;
+  padding: 0rem 1rem;
+  margin-top: 0.7rem;
+}
+
+.Create_Account img {
+  width: 5rem;
+  margin: 1rem;
+}
+
+#standard-basic,
+#standard-password-input {
+  font-size: 1.5rem;
+}
+
+.inputs {
+  padding-bottom: 1.3rem;
+}
+
+#standard-basic,
+#standard-password-input {
+  color: #393e46;
+  font-family: "Manrope", sans-serif;
+}
+
+
+.Create_Account .homeLogo {
+  display: flex;
+  flex-direction: column;
+  align-items: right;
+  flex-shrink: 0;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 4rem;
+  position: relative;
+  margin-bottom: -1px; 
+}
+
+.Create_Account .homeLogo:hover {
+  opacity: 0.5;
+}
+.Create_Account-header .home-text {
+  text-align: center;
+  font-family: "Manrope", sans-serif;
+  font-size: 1rem; 
+  align-self: flex-end; 
+}
+
+.Create_Account .homeLogo:hover {
+  opacity: 0.5;
+}

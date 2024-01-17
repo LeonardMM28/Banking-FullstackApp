@@ -1,0 +1,183 @@
+.contacts {
+  padding: 20px;
+  font-family: "Manrope", sans-serif;
+  background-color: #9d9ea1;
+  overflow: hidden; 
+  scroll-behavior: smooth;
+  justify-content: center;
+}
+
+.contacts body {
+  font-family: "Manrope", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #9d9ea1;
+}
+
+.contacts header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 0; 
+  background-color: #393e46;
+  width: 100%;
+  height: 18%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.contacts .homeLogo {
+  display: flex;
+  flex-direction: column;
+  align-items: right;
+  flex-shrink: 0;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 4rem;
+  position: relative;
+  margin-bottom: -1px; 
+}
+
+.contacts .homeLogo:hover {
+  opacity: 0.5;
+}
+.contacts-header .home-text {
+  
+  text-align: center;
+  font-family: "Manrope", sans-serif;
+  font-size: 1rem; 
+  align-self: flex-end; 
+  
+}
+
+.contacts .contacts-logo {
+  width: 8%;
+}
+
+.contacts
+ header h1 {
+  
+  color: rgb(203, 203, 203);
+  padding-left: 1rem;
+}
+
+.contacts section {
+  max-width: 600px;
+  margin: 150px auto 25px;
+  padding: 20px;
+  background-color: #393e46;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.contacts #contactForm{
+  
+    margin: 90px auto 50px;
+}
+
+.contacts h2 {
+  /* words */
+  color: #ffffff;
+}
+
+.contacts form {
+  display: grid;
+  gap: 10px;
+}
+
+.contacts label {
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.contacts input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: #000000;
+}
+
+.contacts button {
+  padding: 14px 20px;
+  background-color: #9d9ea1;
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.contacts button:hover {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+}
+
+.contacts button:active {
+  background-color: #9d9ea1; /* Change the color when the button is clicked */
+  color: rgb(0, 0, 0);
+}
+
+.contacts ul {
+  list-style: none;
+  padding: 0;
+}
+
+.contacts .contact {
+  margin-bottom: 20px; /* Adjust the margin to add space between contacts */
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+
+.contacts .contact button {
+  padding: 10px 16px;
+  background-color: #e74c3c;
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.contacts .contact-item {
+  margin-bottom: 20px; /* Adjust the margin to add space between new contacts */
+  padding: 10px;
+  background-color: #9d9ea1;
+  border-radius: 4px;
+}
+
+.contacts .contact button:hover {
+  background-color: #c0392b;
+}
+
+.contacts .white-text {
+  color: rgb(255, 255, 255);
+}
+
+.contacts .contacts .homeLogo {
+  display: flex;
+  flex-direction: column;
+  align-items: right;
+  flex-shrink: 0;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 4rem;
+  position: relative;
+  margin-bottom: -140px;
+}
+
+.contacts .contacts .homeLogo:hover {
+  opacity: 0.5;
+}
+.contacts .contacts-header .home-text {
+  text-align: center;
+  font-family: "Manrope", sans-serif;
+  font-size: 1rem;
+  align-self: flex-end; /* Align to the bottom of the header */
+}
+
+.contacts .contacts .Transactions-logo {
+  width: 8%;
+}

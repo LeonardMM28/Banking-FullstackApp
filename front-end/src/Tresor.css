@@ -1,0 +1,127 @@
+.Tresor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Manrope", sans-serif;
+  background-color: #9d9ea1;
+  height: 155vh;
+  overflow: hidden; 
+  scroll-behavior: smooth;
+}
+
+.Tresor * {
+  scroll-behavior: smooth;
+}
+
+.Tresor header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 0; 
+  background-color: #393e46;
+  width: 100%;
+  height: 18%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.Tresor .Tresor-logo {
+  width: 8%;
+  opacity: 0;
+}
+
+.Tresor main {
+  width: 100%;
+}
+
+.Tresor main .scroll {
+  color: #9d9ea1;
+  font-size: 1rem;
+  margin: 0;
+  margin-top: 2rem;
+  transition: 0.2s ease-out;
+}
+
+.Tresor main .arrowD {
+  color: #9d9ea1;
+  margin: 0.7rem;
+}
+
+.Tresor main .coverImg {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(57, 62, 70, 1);
+  align-items: center;
+  opacity: 1;
+  overflow: hidden; 
+}
+
+.Tresor main .coverImg.transparent {
+  opacity: 0; 
+  pointer-events: none; 
+}
+
+.Tresor main .coverImg img {
+  width: 50%;
+  z-index: 1000;
+}
+
+.Tresor main .data {
+  padding-top: 27rem;
+  background-color: #9d9ea1;
+  overflow: auto; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  font-size: 2rem;
+  margin: 0;
+  font-family: "Manrope", sans-serif;
+}
+
+.Tresor .dataBox h2 {
+  font-size: 1rem;
+  margin: 0;
+  margin-bottom: 1rem;
+}
+
+.Tresor .dataBox label {
+  font-size: 1.7rem;
+}
+
+.Tresor main .Submit2 {
+  color: #393e46;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+}
+
+.Tresor main .dataBox {
+  color: #393e46;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  padding: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-style: solid;
+  border-width: 0.3rem;
+  border-radius: 0.3rem;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+}
+
+@keyframes drawLine {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.Tresor main .dataBox.animate {
+  animation: drawLine 2s forwards 0s;
+}
