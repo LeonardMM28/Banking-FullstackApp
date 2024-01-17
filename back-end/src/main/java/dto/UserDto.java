@@ -17,7 +17,7 @@ public class UserDto extends BaseDto{
   private Double DOGE = 0.0d;
   private Double XLM = 0.0d;
 
-  private List<TransactionDto> transactions; // Add a field to store transactions
+  private List<TransactionDto> transactions;
 
 
   public UserDto() {
@@ -90,7 +90,7 @@ public class UserDto extends BaseDto{
     document.append("LTC", LTC);
     document.append("DOGE", DOGE);
     document.append("XLM", XLM);
-//    document.append("uniqueId", getUniqueId());
+    document.append("uniqueId", getUniqueId());
     if (transactions != null) {
       List<Document> transactionDocuments = transactions.stream()
               .map(TransactionDto::toDocument)

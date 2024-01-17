@@ -63,46 +63,34 @@ public class UserDao extends BaseDao<UserDto> {
   }
 
   public void updateUserDOGEAmount(UserDto user) {
-    // Define the filter to find the user by userName
     Document filter = new Document("userName", user.getUserName());
 
-    // Define the update operation to set the balance field
     Document update = new Document("$set", new Document("DOGE", user.getDOGE()));
 
-    // Perform the update operation
     UpdateResult result = collection.updateOne(filter, update);
   }
 
   public void updateUserETHAmount(UserDto user) {
-    // Define the filter to find the user by userName
     Document filter = new Document("userName", user.getUserName());
 
-    // Define the update operation to set the balance field
     Document update = new Document("$set", new Document("ETH", user.getETH()));
 
-    // Perform the update operation
     UpdateResult result = collection.updateOne(filter, update);
   }
 
   public void updateUserLTCAmount(UserDto user) {
-    // Define the filter to find the user by userName
     Document filter = new Document("userName", user.getUserName());
 
-    // Define the update operation to set the balance field
     Document update = new Document("$set", new Document("LTC", user.getLTC()));
 
-    // Perform the update operation
     UpdateResult result = collection.updateOne(filter, update);
   }
 
   public void updateUserXLMAmount(UserDto user) {
-    // Define the filter to find the user by userName
     Document filter = new Document("userName", user.getUserName());
 
-    // Define the update operation to set the balance field
     Document update = new Document("$set", new Document("XLM", user.getXLM()));
 
-    // Perform the update operation
     UpdateResult result = collection.updateOne(filter, update);
   }
 

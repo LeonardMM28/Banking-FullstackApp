@@ -1,9 +1,10 @@
 package handler;
-
+import dao.TransactionDao;
 import request.ParsedRequest;
 
 public class HandlerFactory {
     // routes based on the path. Add your custom handlers here
+    private static final TransactionDao transactionDao = TransactionDao.getInstance();
     public static BaseHandler getHandler(ParsedRequest request) {
         return switch (request.getPath()) {
             // todo!
@@ -25,6 +26,7 @@ public class HandlerFactory {
             case "/sellETH" -> new SellEthHandler();
             case "/sellLTC" -> new SellLtcHandler();
             case "/sellXLM" -> new SellXlmHandler();
+            case "/spendingSummary" -> new SpendingSummaryHandler();
             default -> new FallbackHandler();
         };
     }

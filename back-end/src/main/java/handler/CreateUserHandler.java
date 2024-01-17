@@ -25,7 +25,6 @@ public class CreateUserHandler implements BaseHandler {
     Gson gson = new Gson();
 
     try {
-      // Parse the JSON request body to UserDto
       UserDto newUser = gson.fromJson(request.getBody(), UserDto.class);
 
       String uniqueId = ObjectId.get().toString();
@@ -37,26 +36,21 @@ public class CreateUserHandler implements BaseHandler {
       newUser.setDOGE(0.0d);
       newUser.setXLM(0.0d);
 
-      // Hash the password
       newUser.setPassword(DigestUtils.sha256Hex(newUser.getPassword()));
 
-      // Check if the user with the same userName already exists
       UserDao userDao = UserDao.getInstance();
       List<UserDto> existingUsers = userDao.query(new Document("userName", newUser.getUserName()));
 
       if (existingUsers.isEmpty()) {
-        // Insert the new user into the database
         userDao.insert(newUser.toDocument());
 
         RestApiAppResponse<UserDto> response = new RestApiAppResponse<>(true, null, "User created successfully");
 
-        // Successfully created the user
         return responseBuilder.setHeader("Content-Type", "application/json")
                 .setStatus("200 OK")
                 .setVersion("HTTP/1.1")
                 .setBody(response);
       } else {
-        // User with the same userName already exists
         RestApiAppResponse<UserDto> response = new RestApiAppResponse<>(false, null, "Username already taken");
 
         return responseBuilder.setHeader("Content-Type", "application/json")

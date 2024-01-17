@@ -3,6 +3,9 @@ package dto;
 import org.bson.Document;
 
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 public class TransactionDto extends BaseDto {
 
@@ -11,17 +14,20 @@ public class TransactionDto extends BaseDto {
   private Double amount;
   private TransactionType transactionType;
   private Long timestamp;
-  private String cryptoType;  // Add this field for the cryptocurrency type
-  private Double cryptoPrice; // Add this field for the cryptocurrency price
+  private String cryptoType;
+  private Double cryptoPrice;
+
 
   public TransactionDto() {
-    timestamp = Instant.now().toEpochMilli();
+      super(UUID.randomUUID().toString());
+      timestamp = Instant.now().toEpochMilli();
   }
 
   public TransactionDto(String uniqueId) {
     super(uniqueId);
     timestamp = Instant.now().toEpochMilli();
   }
+
 
   public String getUserId() {
     return userId;
@@ -78,6 +84,17 @@ public class TransactionDto extends BaseDto {
     this.cryptoPrice = cryptoPrice;
   }
 
+  public boolean isBuy(){return transactionType == TransactionType.Buy;}
+
+
+
+  public String getFormattedTimestamp() {
+        Instant instant = Instant.ofEpochMilli(this.timestamp);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                .withZone(ZoneId.systemDefault());
+        return formatter.format(instant);
+  }
+
   public Document toDocument() {
     Document document = new Document();
     document.append("userId", userId);
@@ -85,8 +102,8 @@ public class TransactionDto extends BaseDto {
     document.append("amount", amount);
     document.append("transactionType", transactionType.toString());
     document.append("timestamp", timestamp);
-    document.append("cryptoType", cryptoType);   // Include cryptoType in the document
-    document.append("cryptoPrice", cryptoPrice); // Include cryptoPrice in the document
+    document.append("cryptoType", cryptoType);
+    document.append("cryptoPrice", cryptoPrice);
     document.append("uniqueId", getUniqueId());
     return document;
   }
@@ -98,8 +115,8 @@ public class TransactionDto extends BaseDto {
     transactionDto.setAmount(document.getDouble("amount"));
     transactionDto.setTransactionType(TransactionType.valueOf(document.getString("transactionType")));
     transactionDto.setTimestamp(document.getLong("timestamp"));
-    transactionDto.setCryptoType(document.getString("cryptoType"));   // Retrieve cryptoType from the document
-    transactionDto.setCryptoPrice(document.getDouble("cryptoPrice")); // Retrieve cryptoPrice from the document
+    transactionDto.setCryptoType(document.getString("cryptoType"));
+    transactionDto.setCryptoPrice(document.getDouble("cryptoPrice"));
     return transactionDto;
   }
 }

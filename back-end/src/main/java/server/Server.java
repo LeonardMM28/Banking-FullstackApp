@@ -1,5 +1,6 @@
 package server;
 
+import dao.TransactionDao;
 import handler.BaseHandler;
 import handler.HandlerFactory;
 import handler.StatusCodes;
@@ -15,9 +16,10 @@ import request.ParsedRequest;
 import response.CustomHttpResponse;
 import response.HttpResponseBuilder;
 
-public class Server {
 
+public class Server {
   public static void main(String[] args) {
+    TransactionDao transactionDao = TransactionDao.getInstance();
     Calendar.getInstance();
     ServerSocket serverSocket;
     Socket socket = null;
@@ -25,9 +27,8 @@ public class Server {
       serverSocket = new ServerSocket(1299);
       System.out.println("Opened socket " + 1299);
       while (true) {
-        // keeps listening for new clients, one at a time
         try {
-          socket = serverSocket.accept(); // waits for client here
+          socket = serverSocket.accept();
         } catch (IOException e) {
           System.out.println("Error opening socket");
           System.exit(1);
@@ -40,7 +41,7 @@ public class Server {
         System.out.println(input);
 
         BufferedOutputStream out = new BufferedOutputStream(socket.getOutputStream());
-        PrintWriter writer = new PrintWriter(out, true);  // char output to the client
+        PrintWriter writer = new PrintWriter(out, true);
 
         // HTTP Response
         if(!input.isEmpty()){
@@ -61,8 +62,6 @@ public class Server {
     }
   }
 
-  // Assume the http server feeds the entire raw http request here
-  // Response is a raw http response string
   public static String processRequest(String requestString) {
     try{
       ParsedRequest request = CustomParser.parse(requestString);

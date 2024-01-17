@@ -4,8 +4,8 @@ public enum TransactionType {
     Deposit("Deposit"),
     Transfer("Transfer"),
     Withdraw("Withdraw"),
-    Buy("Buy"),  // New
-    Sell("Sell");  // New
+    Buy("Buy"),
+    Sell("Sell");
 
     private final String stringValue;
 

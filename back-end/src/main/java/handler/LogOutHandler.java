@@ -15,10 +15,8 @@ public class LogOutHandler implements BaseHandler {
         HttpResponseBuilder responseBuilder = new HttpResponseBuilder();
 
         try {
-            // Get the authentication token from the cookie
             String authToken = request.getCookieValue("auth");
 
-            // If the authToken is not present, return an error response
             if (authToken == null) {
                 RestApiAppResponse<UserDto> response = new RestApiAppResponse<>(
                         false,
@@ -32,17 +30,13 @@ public class LogOutHandler implements BaseHandler {
                         .setBody(response);
             }
 
-            // Delete the cookie from the browser by setting an expired date
             responseBuilder.setHeader("Set-Cookie", "auth=; Max-Age=0");
 
-            // Remove the session from the database
             AuthDao authDao = AuthDao.getInstance();
             authDao.removeAuthToken(authToken);
 
-            // Set the "Location" header to the redirect URL
             responseBuilder.setHeader("Location", "/Tresor");
 
-            // Return a successful logout response
             RestApiAppResponse<UserDto> response = new RestApiAppResponse<>(
                     true,
                     null,
@@ -50,7 +44,7 @@ public class LogOutHandler implements BaseHandler {
             );
 
             return responseBuilder.setHeader("Content-Type", "application/json")
-                    .setStatus("302 Found") // Use a 302 status code for redirection
+                    .setStatus("302 Found")
                     .setVersion("HTTP/1.1")
                     .setBody(response);
 

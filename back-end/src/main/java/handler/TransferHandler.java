@@ -27,11 +27,9 @@ public class TransferHandler implements BaseHandler {
         Gson gson = new Gson();
 
         try {
-            // Check the user's authentication
             AuthFilter.AuthResult authResult = AuthFilter.doFilter(request);
 
             if (!authResult.isLoggedIn) {
-                // User is not authenticated, return an unauthorized response
                 RestApiAppResponse<TransactionDto> response = new RestApiAppResponse<>(false, null, "User is not authenticated");
 
                 return responseBuilder.setHeader("Content-Type", "application/json")
@@ -40,13 +38,11 @@ public class TransferHandler implements BaseHandler {
                         .setBody(response);
             }
 
-            // Parse the JSON request body to TransferRequestDto
             TransferRequestDto transferRequest = gson.fromJson(request.getBody(), TransferRequestDto.class);
             System.out.println(gson.toJson(transferRequest));
 
 
             if (transferRequest.amount <= 0) {
-                // Handle invalid transfer amount
                 RestApiAppResponse<TransactionDto> response = new RestApiAppResponse<>(false, null, "Invalid transfer amount");
 
                 return responseBuilder.setHeader("Content-Type", "application/json")
@@ -55,13 +51,11 @@ public class TransferHandler implements BaseHandler {
                         .setBody(response);
             }
 
-            // Get the user who initiates the transfer (fromUser)
             UserDao userDao = UserDao.getInstance();
             List<UserDto> fromUserList = userDao.query(new Document("userName", authResult.userName));
             System.out.println(gson.toJson(fromUserList));
 
             if (fromUserList.isEmpty()) {
-                // Handle user not found
                 RestApiAppResponse<TransactionDto> response = new RestApiAppResponse<>(false, null, "User not found");
 
                 return responseBuilder.setHeader("Content-Type", "application/json")
@@ -73,7 +67,6 @@ public class TransferHandler implements BaseHandler {
             UserDto fromUser = fromUserList.get(0);
 
             if (fromUser.getBalance() < transferRequest.amount) {
-                // Handle insufficient funds
                 RestApiAppResponse<TransactionDto> response = new RestApiAppResponse<>(false, null, "Insufficient funds");
 
                 return responseBuilder.setHeader("Content-Type", "application/json")
@@ -82,9 +75,7 @@ public class TransferHandler implements BaseHandler {
                         .setBody(response);
             }
 
-            // Get the user who receives the transfer (toUser)
 
-//            List<UserDto> toUserList = userDao.query(new Document("_id", new ObjectId(transferRequest.toId)));
             List<UserDto> toUserList = userDao.query(new Document("userName", transferRequest.toId));
 
             if(!toUserList.isEmpty()){
@@ -96,7 +87,6 @@ public class TransferHandler implements BaseHandler {
             System.out.println(gson.toJson(toUserList));
 
             if (toUserList.isEmpty()) {
-                // Handle recipient user not found
                 RestApiAppResponse<TransactionDto> response = new RestApiAppResponse<>(false, null, "Recipient user not found");
 
                 return responseBuilder.setHeader("Content-Type", "application/json")
@@ -113,11 +103,9 @@ public class TransferHandler implements BaseHandler {
             transferTransaction.setAmount(transferRequest.amount);
             transferTransaction.setTransactionType(TransactionType.Transfer);
 
-            // Insert the transfer transaction into the database
             TransactionDao transactionDao = TransactionDao.getInstance();
             transactionDao.insert(transferTransaction.toDocument());
 
-            // Update the balances for 'fromUser' and 'toUser'
             fromUser.setBalance(fromUser.getBalance() - transferRequest.amount);
             toUser.setBalance(toUser.getBalance() + transferRequest.amount);
 

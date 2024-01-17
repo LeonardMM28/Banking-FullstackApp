@@ -13,11 +13,9 @@ public class CustomParser {
     String[] req = request.split("(\r\n|\r|\n)");
     boolean reachedEmptyLine = false;
 
-    // Parse the request line (e.g., "POST /createUser?param1=value1&param2=value2 HTTP/1.1")
     String[] reqLineParts = req[0].split(" ");
     parsedRequest.setMethod(reqLineParts[0]);
 
-    // Check if there's a query string
     String[] pathAndQuery = reqLineParts[1].split("\\?");
     parsedRequest.setPath(pathAndQuery[0]);
 
@@ -25,7 +23,7 @@ public class CustomParser {
       String line = req[i];
       if (line.isEmpty()) {
         reachedEmptyLine = true;
-        continue; // Skip the empty line
+        continue;
       }
 
       if (!reachedEmptyLine) {
@@ -36,7 +34,6 @@ public class CustomParser {
           parsedRequest.setHeaderValue(key, value);
 
           if (key.equalsIgnoreCase("Cookie")) {
-            // Parse the "Cookie" header
             String[] cookies = value.split("; ");
             for (String cookie : cookies) {
               String[] cookieParts = cookie.split("=");
@@ -61,7 +58,6 @@ public class CustomParser {
       }
     }
 
-    // Find the empty line that separates headers from the body
     int emptyLineIndex = 1;
     for (int i = 1; i < req.length; i++) {
       if (req[i].isEmpty()) {
@@ -70,11 +66,10 @@ public class CustomParser {
       }
     }
 
-    // Parse the body if there's content after the empty line
     if (emptyLineIndex < req.length - 1) {
       StringBuilder requestBody = new StringBuilder();
       for (int j = emptyLineIndex + 1; j < req.length; j++) {
-        requestBody.append(req[j]).append("\n"); // Use "\n" to ensure compatibility
+        requestBody.append(req[j]).append("\n");
       }
       String requestBodyStr = requestBody.toString().trim();
       parsedRequest.setBody(requestBodyStr);

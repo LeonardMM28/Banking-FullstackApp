@@ -26,11 +26,9 @@ public class WithdrawHandler  implements BaseHandler {
         Gson gson = new Gson();
 
         try {
-            // Check the user's authentication
             AuthFilter.AuthResult authResult = AuthFilter.doFilter(request);
 
             if (!authResult.isLoggedIn) {
-                // User is not authenticated, return an unauthorized response
                 RestApiAppResponse<TransactionDto> response = new RestApiAppResponse<>(false, null, "User is not authenticated");
 
                 return responseBuilder.setHeader("Content-Type", "application/json")
@@ -39,11 +37,9 @@ public class WithdrawHandler  implements BaseHandler {
                         .setBody(response);
             }
 
-            // Parse the JSON request body to TransactionDto
             TransactionDto transaction = gson.fromJson(request.getBody(), TransactionDto.class);
 
             if (transaction.getAmount() <= 0) {
-                // Handle invalid deposit amount
                 RestApiAppResponse<TransactionDto> response = new RestApiAppResponse<>(false, null, "Invalid amount to withdraw");
 
                 return responseBuilder.setHeader("Content-Type", "application/json")
@@ -52,15 +48,12 @@ public class WithdrawHandler  implements BaseHandler {
                         .setBody(response);
             }
 
-            // Create a withd transaction
-            transaction.setUserId(authResult.userName); // Assuming that userName is the userId
+            transaction.setUserId(authResult.userName);
             transaction.setTransactionType(TransactionType.Withdraw);
 
-            // Insert the with into the database
             TransactionDao transactionDao = TransactionDao.getInstance();
             transactionDao.insert(transaction.toDocument());
 
-            // Update the user's balance
             UserDao userDao = UserDao.getInstance();
             UserDto user = userDao.query(new Document("userName", authResult.userName)).get(0);
 
@@ -75,7 +68,6 @@ public class WithdrawHandler  implements BaseHandler {
 
             user.setBalance(user.getBalance() - transaction.getAmount());
 
-            // Update the user's balance in the database
             userDao.update(new Document("userName", authResult.userName), user.toDocument());
 
             List<TransactionDto> userTransactions = user.getTransactions();

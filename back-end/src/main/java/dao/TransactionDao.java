@@ -2,6 +2,7 @@ package dao;
 
 import com.mongodb.client.MongoCollection;
 import dto.TransactionDto;
+import dto.TransactionType;
 import org.bson.Document;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public class TransactionDao extends BaseDao<TransactionDto> {
 
   private static TransactionDao instance;
 
-  private TransactionDao(MongoCollection<Document> collection) {
+  public TransactionDao(MongoCollection<Document> collection) {
     super(collection);
   }
 
@@ -61,4 +62,22 @@ public class TransactionDao extends BaseDao<TransactionDto> {
             .map(TransactionDto::fromDocument)
             .collect(Collectors.toList());
   }
+
+  public List<TransactionDto> getBuyTransactions(){
+    Document filter = new Document("transactionType", TransactionType.Buy.toString());
+    List<Document> documents = collection.find(filter).into(new ArrayList<>());
+    return documents.stream()
+            .map(TransactionDto::fromDocument)
+            .collect(Collectors.toList());
+  }
+
+  public Double getSpendingSummaryForUser(String userId){
+    Document filter = new Document("userId", userId)
+            .append("transactionType", TransactionType.Buy.toString());
+    List<Document> buyTransactions = collection.find(filter).into(new ArrayList<>());
+    return buyTransactions.stream()
+            .mapToDouble(document -> document.getDouble("amount"))
+            .sum();
+  }
+
 }
